@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsPop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="font-poppins text-gray-800 bg-gray-50">
+
+    <nav class="bg-gradient-to-r from-blue-300 to-blue-500 shadow-lg fixed top-0 w-full z-50">
+        <div class="container mx-auto flex items-center justify-between py-3 px-4">
+            <a class="flex items-center">
+                <img src="../assets/logo.png" alt="NewsPop Logo" class="w-12 h-12 mr-2">
+                <span class="text-2xl font-semibold text-blue-800">NewsPop</span>
+            </a>
+
+            <div class="hidden md:flex nav-links">
+                <ul class="flex space-x-4">
+                    <li href="#" onclick="reload()"
+                        class="nav-link hover:text-gray-600 cursor-pointer transition duration-300 active font-bold"
+                        id="home" onclick="onNavItemClick('home')">Home</li>
+                    <li class="navlink hover:text-gray-600 cursor-pointer transition duration-300 font-bold" id="quiz"
+                        onclick="takeQuiz()">Quiz</li>
+                </ul>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="menu-button"
+                    class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300"
+                    onclick="toggleMenu()">
+                    Menu
+                </button>
+
+            </div>
+            <div class="search-bar hidden md:flex items-center space-x-2">
+                <input id="search-text" type="text"
+                    class="w-48 h-10 p-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                    placeholder="e.g. Sports">
+                <button id="search-button"
+                    class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Search</button>
+            </div>
+        </div>
+        <div id="toggle-menu" class="hidden bg-white shadow-lg rounded-lg absolute right-0 mt-2 w-48 z-50">
+            <ul class="flex flex-col p-2">
+                <li href="#" onclick="reload()"
+                    class=" hover:text-gray-600 cursor-pointer transition duration-300 font-semibold" id="home-mobile"
+                    onclick="onNavItemClick('home'); closeMenu()">Home</li>
+                <li class=" hover:text-gray-600 cursor-pointer transition duration-300 font-semibold" id="quiz-mobile"
+                    onclick="takeQuiz(); closeMenu()">Quiz</li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto mt-20 py-10 px-4">
+        <div id="weather-widget" class="weather-widget fixed top-1 right-4 bg-white shadow-lg p-3 rounded-lg flex items-center">
+            <img id="weather-icon" src="" alt="Weather Icon" class="w-10 h-10">
+            <span id="weather-info" class="ml-2 text-gray-800"></span>
+        </div>
+
+        <div class="text-center mb-10 fade-in">
+            <h1 class="text-4xl font-bold text-blue-800">Welcome to <span class="color-change">News</span>Pop</h1>
+            <p class="text-lg text-gray-600">Your one-stop platform for the latest headlines!</p>
+        </div>
+
+        <div class="search-bar md:hidden mb-5 flex gap-3 justify-center fade-in">
+            <input id="search-text-mobile" type="text"
+                class="w-48 h-10 p-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                placeholder="e.g. Sports">
+            <button id="search-button-mobile"
+                class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Search</button>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-10 mb-5">
+            <div class="flex space-x-2 mb-5">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded button bounce"
+                    onclick="fetchNews('latest')">Latest
+                    News</button>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded button bounce" onclick="fetchNews('top')">Top
+                    News</button>
+            </div>
+            <div class="flex items-center gap-2 mb-5">
+                <label for="dateFrom" class="mr-2">From:</label>
+                <input type="date" id="dateFrom" class="border border-gray-400 rounded p-1">
+                <label for="dateTo" class="mx-2">To:</label>
+                <input type="date" id="dateTo" class="border border-gray-400 rounded p-1">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded button bounce"
+                    onclick="filterByDate()">Filter</button>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap justify-between gap-5" id="cards-container"></div>
+
+        <div id="quiz-section" class="hidden mt-10 p-5 bg-white rounded-lg shadow-lg fade-in">
+            <h2 class="text-2xl font-semibold mb-4">News Quiz</h2>
+            <div id="quiz-container" class="mb-5"></div>
+            <button id="submit-quiz" class="bg-blue-500 text-white px-4 py-2 rounded button mt-4">Submit</button>
+            <div id="quiz-result" class="mt-4 text-lg"></div>
+        </div>
+
+    </main>
+
+    <template id="template-news-card">
+        <div
+            class="card w-80 min-h-[400px] bg-white shadow-md rounded overflow-hidden transition-transform transform hover:-translate-y-1 hover:shadow-lg fade-in">
+            <div class="card-header">
+                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img"
+                    class="w-full h-44 object-cover">
+            </div>
+            <div class="card-content p-3">
+                <h3 id="news-title" class="text-lg font-semibold mb-2">This is the Title</h3>
+                <h6 class="news-source text-sm text-gray-500 mb-3" id="news-source">End Gadget 26/08/2023</h6>
+                <p class="news-desc text-sm text-gray-700" id="news-desc">Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Recusandae saepe quis voluptatum quisquam vitae doloremque facilis molestias quae
+                    ratione cumque!</p>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js" defer></script>
+
+</body>
+
+</html>
