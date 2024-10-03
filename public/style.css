@@ -1117,7 +1117,7 @@ video {
   align-items: center;
   z-index: 1000;
 }
-/* Add this to your style.css file */
+
 
 body {
   background: linear-gradient(to bottom right, #f0f9ff, #c4e0e5);
@@ -1133,19 +1133,16 @@ h1 {
 
 .color-change {
   color: #1e40af;
-  /* Current color */
   animation: color-change 1s infinite alternate;
 }
 
 @keyframes color-change {
   0% {
     color: #1e40af;
-    /* Current color */
   }
 
   100% {
     color: #000000;
-    /* Black color */
   }
 }
 
@@ -1156,8 +1153,6 @@ h1 {
 .button:hover {
   transform: scale(1.05);
 }
-
-/* Add some padding and margin to make it look cleaner */
 .container {
   padding: 20px;
 }
@@ -1174,15 +1169,10 @@ h1 {
 .weather-widget {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-/* Modify the weather widget styles */
 .weather-widget {
   border: 1px solid #e5e7eb;
-  /* Gray border */
   background-color: #f8fafc;
-  /* Light background */
   color: #374151;
-  /* Dark text */
 }
 .px-4 {
   padding-left: 1rem;

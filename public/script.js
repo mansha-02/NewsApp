@@ -12,27 +12,18 @@ const user = {
     authenticated: false,
 };
 
-// Inside your script.js file
-
 window.addEventListener("load", () => {
     fetchNews("India");
     document.getElementById("news-span").classList.add("animate");
 });
-
-
-// Reload Page
 function reload() {
     location.reload();
 }
-
-// Fetch News
 function fetchNews(query) {
     fetch(`${url}${query}&apiKey=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => bindData(data.articles));
 }
-
-// Bind Data
 function bindData(articles) {
     const cardsContainer = document.getElementById("cards-container");
     const newsCardTemplate = document.getElementById("template-news-card");
@@ -46,8 +37,6 @@ function bindData(articles) {
         cardsContainer.appendChild(cardClone);
     });
 }
-
-// Fill News Card
 function fillDataInCard(cardClone, article) {
     const newsImg = cardClone.querySelector("#news-img");
     const newsTitle = cardClone.querySelector("#news-title");
@@ -108,9 +97,7 @@ searchButton.addEventListener("click", () => {
             fetchNews(query);
             closeMenu(); // Close menu after search
         });
-        
-
-// Filter by Date
+  
 // Filter by Date
 function filterByDate() {
     const fromDate = document.getElementById("dateFrom").value;
@@ -138,7 +125,7 @@ function fetchNewsWithDate(fromDate, toDate) {
 }
 
 
-// Fetch Random Trivia Questions
+// Fetch Random Questions
 async function fetchQuizQuestions() {
     try {
         const response = await fetch(triviaUrl);
@@ -208,12 +195,12 @@ document.getElementById("submit-quiz").addEventListener("click", () => {
 
     resultContainer.innerHTML = resultHTML;
 });
-let lastArticleTimestamp = null; // To track the latest news timestamp
+let lastArticleTimestamp = null; 
 
 // Poll for breaking news every 30 seconds
 setInterval(() => {
     fetchBreakingNews();
-}, 10000); // 10 seconds interval
+}, 10000);
 
 // Fetch Breaking News
 function fetchBreakingNews() {
@@ -221,7 +208,7 @@ function fetchBreakingNews() {
         .then((res) => res.json())
         .then((data) => {
             const articles = data.articles;
-            const latestArticle = articles[0]; // Assuming the first article is the latest
+            const latestArticle = articles[0]; 
             const latestArticleTime = new Date(latestArticle.publishedAt).getTime();
 
             // Check if the latest news is newer than the last shown news
@@ -259,7 +246,7 @@ const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=";
 
 async function fetchWeather(city) {
     try {
-        const response = await fetch(`${weatherUrl}${city}&appid=${WEATHER_API_KEY}&units=metric`); // Use metric for Celsius
+        const response = await fetch(`${weatherUrl}${city}&appid=${WEATHER_API_KEY}&units=metric`); 
         const data = await response.json();
 
         if (data.cod === 200) {
@@ -285,7 +272,7 @@ function displayWeather(data) {
     weatherInfo.innerHTML = `${temp}°C in ${city}`;
 }
 
-// Fetch default weather for a predefined city
+// Fetch default weather 
 window.addEventListener("load", () => {
-    fetchWeather("Jakarta"); // You can change this to any default city you prefer
+    fetchWeather("Jakarta"); 
 });
