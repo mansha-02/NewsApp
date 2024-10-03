@@ -34,7 +34,7 @@ const WEATHER_API_KEY = 'your-openweatherapi-key';
 
 >>Usage
 
-• Upon loading, NewsPop will display the latest news from the default category (India).    
+• Upon loading, NewsPop will display the latest news from the default category (India) -- click on news cards for detailed news!
 • Use the search bar at the top or the mobile search bar to filter news by keywords.    
 • Filter articles using the date range filter to display news published within specific dates.    
 • Interact with the Quiz section by clicking on "Quiz" in the navbar and answering random trivia questions.    
